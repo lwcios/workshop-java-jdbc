@@ -62,7 +62,7 @@ public class MainViewController implements Initializable {
 	 * consumer<t> para que a função load view funcione com as alterações feitas,
 	 * onde passamos uma função lambda como argumento
 	 */
-	private synchronized <T> void loadView(String absoluteName, Consumer<T> initializeAction) {
+	private synchronized <T> void loadView(String absoluteName, Consumer<T> initializingAction) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 
@@ -99,7 +99,7 @@ public class MainViewController implements Initializable {
 			/*Nessas duas linhas fazemos com que seja executada a função que passamos 
 			 * como parâmetro no loadview*/
 			T controller = loader.getController();
-			initializeAction.accept(controller);
+			initializingAction.accept(controller);
 
 		} catch (IOException e) {
 

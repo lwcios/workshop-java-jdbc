@@ -44,9 +44,11 @@ public class DepartmentListController implements Initializable {
 
 	private ObservableList<Department> obsList;
 
+	@FXML
 	public void onbtNewAction(ActionEvent event) {
         Stage parentStage = Utils.currentStage(event);
-		crateDialogForm("/gui/DepartmentForm.fxml",parentStage);
+        Department obj = new Department();
+		crateDialogForm(obj,"/gui/DepartmentForm.fxml",parentStage);
 		
 		
 
@@ -101,11 +103,16 @@ public class DepartmentListController implements Initializable {
 	}
 	
 	//função para criar uma caixa de diálogo
-	private void crateDialogForm(String absolutName,Stage parentStage) {
+	private void crateDialogForm(Department obj,String absolutName,Stage parentStage) {
 		try {
 			
 			FXMLLoader loader = new FXMLLoader((getClass().getResource(absolutName)));
 			Pane pane =loader.load();
+			
+			DepartmentFormController controller = loader.getController();
+			controller.setDepartment(obj);
+			controller.updateFormData();
+			
 			Stage dialogstage = new Stage();
 			dialogstage.setTitle("Enter Department Data");
 			dialogstage.setScene(new Scene(pane));
