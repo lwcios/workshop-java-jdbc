@@ -15,4 +15,16 @@ public class DepartmentService {
 	}
 	
 	
+	public void saveOrUpdate(Department obj) {
+		
+		if(obj.getId()==null) {
+			/*como na criação do DB o id é notNull colocamos o id =0*/
+			obj.setId(0);
+			dao.insert(obj);
+		}else {
+			
+			dao.update(obj);
+		}
+	}
+	
 }

@@ -10,11 +10,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Department;
+import model.services.DepartmentService;
 
 public class DepartmentFormController  implements Initializable{
     
 	private Department entity;
 	
+	private DepartmentService service;
 	
 	@FXML
 	private TextField txtId;
@@ -35,15 +37,28 @@ public class DepartmentFormController  implements Initializable{
 		this.entity = entity;
 	}
 	
-	
+	public void setDepartmentService(DepartmentService service) {
+		
+		this.service = service;
+	}
 	
 	
 	@FXML
 	public void onbtSavingAction() {
 		
-		System.out.println("onbtSavingAction");
+		entity = getFormData();
+		service.saveOrUpdate(entity);
+	
+		
 	}
 	
+	private Department getFormData() {
+		Department obj = new Department();
+		obj.setId(gui.util.Utils.tryparseToInt(txtId.getText()));
+		obj.setName(txtName.getText());
+		return obj;
+	}
+
 	@FXML
 	public void onbtCancelAction() {
 		System.out.println("onbtCancelAction");
@@ -56,7 +71,7 @@ public class DepartmentFormController  implements Initializable{
 		
 	}
 
-	
+	@FXML
 	private void initializaNode() {
 		
 		Constraints.setTextFieldInteger(txtId);
