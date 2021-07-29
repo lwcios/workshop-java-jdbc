@@ -1,6 +1,7 @@
 package gui;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -39,7 +40,14 @@ public class SellerListController implements Initializable, DataChangeListener {
 
 	@FXML
 	private TableColumn<Seller, String> tablecolumnName;
-
+    
+	@FXML
+	private TableColumn<Seller, String> tablecolumnEmail;
+	@FXML
+	private TableColumn<Seller, Date> tablecolumnBirthDate;
+	@FXML
+	private TableColumn<Seller, Double> tablecolumnBaseSalary;
+	
 	@FXML
 	private TableColumn<Seller, Seller> tableColumnEDIT;
 	@FXML
@@ -77,7 +85,11 @@ public class SellerListController implements Initializable, DataChangeListener {
 		// Usa-se esse padrão no javafx para iniciar o comportamneto das colunas
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<Seller, Integer>("id"));
 		tablecolumnName.setCellValueFactory(new PropertyValueFactory<Seller, String>("Name"));
-
+		tablecolumnEmail.setCellValueFactory(new PropertyValueFactory<Seller, String>("email"));
+		tablecolumnBirthDate.setCellValueFactory(new PropertyValueFactory<Seller, Date>("birthDate"));
+		Utils.formatTableColumnDate(tablecolumnBirthDate, "dd/MM/yyyy");
+		tablecolumnBaseSalary.setCellValueFactory(new PropertyValueFactory<Seller, Double>("baseSalary"));
+       Utils.formatTableColumnDouble(tablecolumnBaseSalary, 2 );
 		/*
 		 * Ajustando a altura datable view 1º pegamos uma referencia para a sena através
 		 * do metodo getMainScene() 2º depois chamamos o método getWindow() que é uma
